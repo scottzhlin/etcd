@@ -1,4 +1,4 @@
-module go.etcd.io/etcd/v3
+module go.etcd.io/etcd
 
 go 1.14
 
