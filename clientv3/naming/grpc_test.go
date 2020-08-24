@@ -20,9 +20,9 @@ import (
 	"reflect"
 	"testing"
 
-	etcd "go.etcd.io/etcd/v3/clientv3"
-	"go.etcd.io/etcd/v3/integration"
-	"go.etcd.io/etcd/v3/pkg/testutil"
+	etcd "github.com/hanjm/etcd/clientv3"
+	"github.com/hanjm/etcd/integration"
+	"github.com/hanjm/etcd/pkg/testutil"
 )
 
 func TestGRPCResolver(t *testing.T) {

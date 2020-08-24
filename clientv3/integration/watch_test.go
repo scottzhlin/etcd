@@ -24,13 +24,13 @@ import (
 	"testing"
 	"time"
 
-	"go.etcd.io/etcd/v3/clientv3"
-	"go.etcd.io/etcd/v3/etcdserver/api/v3rpc"
-	"go.etcd.io/etcd/v3/etcdserver/api/v3rpc/rpctypes"
-	"go.etcd.io/etcd/v3/integration"
-	mvccpb "go.etcd.io/etcd/v3/mvcc/mvccpb"
-	"go.etcd.io/etcd/v3/pkg/testutil"
-	"go.etcd.io/etcd/v3/version"
+	"github.com/hanjm/etcd/clientv3"
+	"github.com/hanjm/etcd/etcdserver/api/v3rpc"
+	"github.com/hanjm/etcd/etcdserver/api/v3rpc/rpctypes"
+	"github.com/hanjm/etcd/integration"
+	mvccpb "github.com/hanjm/etcd/mvcc/mvccpb"
+	"github.com/hanjm/etcd/pkg/testutil"
+	"github.com/hanjm/etcd/version"
 
 	"google.golang.org/grpc/metadata"
 )

@@ -23,8 +23,8 @@ import (
 	"strings"
 	"time"
 
-	"go.etcd.io/etcd/v3/clientv3"
-	"go.etcd.io/etcd/v3/embed"
+	"github.com/hanjm/etcd/clientv3"
+	"github.com/hanjm/etcd/embed"
 
 	"go.uber.org/zap"
 )

@@ -18,9 +18,9 @@ import (
 	"encoding/json"
 	"os"
 
-	"go.etcd.io/etcd/v3/clientv3"
-	"go.etcd.io/etcd/v3/clientv3/concurrency"
-	"go.etcd.io/etcd/v3/clientv3/naming"
+	"github.com/hanjm/etcd/clientv3"
+	"github.com/hanjm/etcd/clientv3/concurrency"
+	"github.com/hanjm/etcd/clientv3/naming"
 
 	"go.uber.org/zap"
 	"golang.org/x/time/rate"

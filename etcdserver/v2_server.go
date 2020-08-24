@@ -18,8 +18,8 @@ import (
 	"context"
 	"time"
 
-	"go.etcd.io/etcd/v3/etcdserver/api/v2store"
-	pb "go.etcd.io/etcd/v3/etcdserver/etcdserverpb"
+	"github.com/hanjm/etcd/etcdserver/api/v2store"
+	pb "github.com/hanjm/etcd/etcdserver/etcdserverpb"
 )
 
 type RequestV2 pb.Request

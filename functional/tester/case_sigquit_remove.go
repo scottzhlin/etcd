@@ -21,8 +21,8 @@ import (
 	"strings"
 	"time"
 
-	"go.etcd.io/etcd/v3/clientv3"
-	"go.etcd.io/etcd/v3/functional/rpcpb"
+	"github.com/hanjm/etcd/clientv3"
+	"github.com/hanjm/etcd/functional/rpcpb"
 
 	"go.uber.org/zap"
 )

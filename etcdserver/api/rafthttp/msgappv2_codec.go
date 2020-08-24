@@ -20,10 +20,10 @@ import (
 	"io"
 	"time"
 
-	stats "go.etcd.io/etcd/v3/etcdserver/api/v2stats"
-	"go.etcd.io/etcd/v3/pkg/pbutil"
-	"go.etcd.io/etcd/v3/pkg/types"
-	"go.etcd.io/etcd/v3/raft/raftpb"
+	stats "github.com/hanjm/etcd/etcdserver/api/v2stats"
+	"github.com/hanjm/etcd/pkg/pbutil"
+	"github.com/hanjm/etcd/pkg/types"
+	"github.com/hanjm/etcd/raft/raftpb"
 )
 
 const (

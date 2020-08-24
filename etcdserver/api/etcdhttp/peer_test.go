@@ -29,12 +29,12 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/coreos/go-semver/semver"
-	"go.etcd.io/etcd/v3/etcdserver/api"
-	"go.etcd.io/etcd/v3/etcdserver/api/membership"
-	"go.etcd.io/etcd/v3/etcdserver/api/rafthttp"
-	pb "go.etcd.io/etcd/v3/etcdserver/etcdserverpb"
-	"go.etcd.io/etcd/v3/pkg/testutil"
-	"go.etcd.io/etcd/v3/pkg/types"
+	"github.com/hanjm/etcd/etcdserver/api"
+	"github.com/hanjm/etcd/etcdserver/api/membership"
+	"github.com/hanjm/etcd/etcdserver/api/rafthttp"
+	pb "github.com/hanjm/etcd/etcdserver/etcdserverpb"
+	"github.com/hanjm/etcd/pkg/testutil"
+	"github.com/hanjm/etcd/pkg/types"
 )
 
 type fakeCluster struct {

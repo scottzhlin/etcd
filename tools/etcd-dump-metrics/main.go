@@ -25,7 +25,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"go.etcd.io/etcd/v3/embed"
+	"github.com/hanjm/etcd/embed"
 
 	"go.uber.org/zap"
 )

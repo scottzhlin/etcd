@@ -18,8 +18,8 @@ import (
 	"context"
 	"strings"
 
-	v3 "go.etcd.io/etcd/v3/clientv3"
-	v3pb "go.etcd.io/etcd/v3/etcdserver/etcdserverpb"
+	v3 "github.com/hanjm/etcd/clientv3"
+	v3pb "github.com/hanjm/etcd/etcdserver/etcdserverpb"
 )
 
 type txnLeasing struct {

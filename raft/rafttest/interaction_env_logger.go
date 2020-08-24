@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"strings"
 
-	"go.etcd.io/etcd/v3/raft"
+	"github.com/hanjm/etcd/raft"
 )
 
 type logLevels [6]string

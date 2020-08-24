@@ -29,12 +29,12 @@ import (
 	"testing"
 	"time"
 
-	"go.etcd.io/etcd/v3/lease"
-	"go.etcd.io/etcd/v3/mvcc/backend"
-	"go.etcd.io/etcd/v3/mvcc/mvccpb"
-	"go.etcd.io/etcd/v3/pkg/schedule"
-	"go.etcd.io/etcd/v3/pkg/testutil"
-	"go.etcd.io/etcd/v3/pkg/traceutil"
+	"github.com/hanjm/etcd/lease"
+	"github.com/hanjm/etcd/mvcc/backend"
+	"github.com/hanjm/etcd/mvcc/mvccpb"
+	"github.com/hanjm/etcd/pkg/schedule"
+	"github.com/hanjm/etcd/pkg/testutil"
+	"github.com/hanjm/etcd/pkg/traceutil"
 
 	"go.uber.org/zap"
 )

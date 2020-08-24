@@ -25,9 +25,9 @@ import (
 	"testing"
 	"time"
 
-	"go.etcd.io/etcd/v3/client"
-	"go.etcd.io/etcd/v3/etcdserver"
-	"go.etcd.io/etcd/v3/pkg/testutil"
+	"github.com/hanjm/etcd/client"
+	"github.com/hanjm/etcd/etcdserver"
+	"github.com/hanjm/etcd/pkg/testutil"
 )
 
 func init() {
