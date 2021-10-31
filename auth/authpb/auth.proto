@@ -1,5 +1,5 @@
 syntax = "proto3";
-package authpb;
+package go.etcd.io.authpb;
 
 import "gogoproto/gogo.proto";
 

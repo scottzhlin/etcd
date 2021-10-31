@@ -4,6 +4,7 @@
 # Run from repository root.
 #
 set -e
+set -x
 
 if ! [[ "$0" =~ scripts/genproto.sh ]]; then
 	echo "must be run from repository root"
@@ -17,8 +18,9 @@ fi
 
 # directories containing protos to be built
 DIRS="./wal/walpb ./etcdserver/etcdserverpb ./etcdserver/api/snap/snappb ./raft/raftpb ./mvcc/mvccpb ./lease/leasepb ./auth/authpb ./etcdserver/api/v3lock/v3lockpb ./etcdserver/api/v3election/v3electionpb ./etcdserver/api/membership/membershippb"
+#DIRS="./auth/authpb"
 
-# disable go mod - this is for the go get/install invocations
+# disable go mod
 export GO111MODULE=off
 
 # exact version of packages to build
@@ -40,27 +42,28 @@ GRPC_GATEWAY_ROOT="${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway"
 
 function cleanup {
   # Remove the whole fake GOPATH which can really confuse go mod.
-  rm -rf "${PWD}/gopath.proto"
+   echo  rm -rf "${PWD}/gopath.proto"
 }
 
 cleanup
 trap cleanup EXIT
 
 mkdir -p "${ETCD_IO_ROOT}"
-ln -s "${PWD}" "${ETCD_ROOT}"
+ln -sf "${PWD}" "${ETCD_ROOT}"
 
 # Ensure we have the right version of protoc-gen-gogo by building it every time.
 # TODO(jonboulle): vendor this instead of `go get`ting it.
-go get -u github.com/gogo/protobuf/{proto,protoc-gen-gogo,gogoproto}
-go get -u golang.org/x/tools/cmd/goimports
+go get github.com/gogo/protobuf/{proto,protoc-gen-gogo,gogoproto}
+go get golang.org/x/tools/cmd/goimports
 pushd "${GOGOPROTO_ROOT}"
 	git reset --hard "${GOGO_PROTO_SHA}"
 	make install
 popd
 
 # generate gateway code
-go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
-go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+#go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+go get github.com/golang/protobuf/jsonpb
 pushd "${GRPC_GATEWAY_ROOT}"
 	git reset --hard "${GRPC_GATEWAY_SHA}"
 	go install ./protoc-gen-grpc-gateway
@@ -68,6 +71,7 @@ popd
 
 for dir in ${DIRS}; do
 	pushd "${dir}"
+	  echo "pwd: $PWD"
 		protoc --gofast_out=plugins=grpc,import_prefix=go.etcd.io/:. -I=".:${GOGOPROTO_PATH}:${ETCD_IO_ROOT}:${GRPC_GATEWAY_ROOT}/third_party/googleapis" ./*.proto
 		# shellcheck disable=SC1117
 		sed -i.bak -E 's/go\.etcd\.io\/(gogoproto|github\.com|golang\.org|google\.golang\.org)/\1/g' ./*.pb.go
@@ -81,10 +85,7 @@ for dir in ${DIRS}; do
 		sed -i.bak -E 's/import _ \"go\.etcd\.io\/google\/api\"//g' ./*.pb.go
 		# shellcheck disable=SC1117
 		sed -i.bak -E 's/import _ \"google\.golang\.org\/genproto\/googleapis\/api\/annotations\"//g' ./*.pb.go
-		# shellcheck disable=SC1117
-		sed -i.bak -E "s/go.etcd.io\/etcd\//go.etcd.io\/etcd\/v3\//" ./*.pb.go
 		rm -f ./*.bak
-		gofmt -s -w ./*.pb.go
 		goimports -w ./*.pb.go
 	popd
 done
@@ -113,9 +114,7 @@ for pb in etcdserverpb/rpc api/v3lock/v3lockpb/v3lock api/v3election/v3electionp
 	sed -i.bak -E "s/New[A-Za-z]*Client/${pkg}.&/" ${gwfile}
 	# darwin doesn't like newlines in sed...
 	# shellcheck disable=SC1117
-	sed -i.bak -E "s|import \(|& \"github.com/hanjm/etcd/${pkgpath}\"|" ${gwfile}
-	# shellcheck disable=SC1117
-	sed -i.bak -E "s/go.etcd.io\etcd\//go.etcd.io\/etcd\/v3/" ${gwfile}
+	sed -i.bak -E "s|import \(|& \"go.etcd.io/etcd/${pkgpath}\"|" ${gwfile}
 	mkdir -p  "${pkgpath}"/gw/
 	go fmt ${gwfile}
 	mv ${gwfile} "${pkgpath}/gw/"
