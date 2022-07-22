@@ -287,7 +287,7 @@ func (c *Client) getToken(ctx context.Context) error {
 			err = fmt.Errorf("failed to configure auth dialer: %v", err)
 			continue
 		}
-		dOpts = append(dOpts, grpc.WithBalancerName(roundRobinBalancerName))
+		dOpts = append(dOpts, grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"round_robin"}`))
 		auth, err = newAuthenticator(ctx, target, dOpts, c)
 		if err != nil {
 			continue
@@ -473,7 +473,7 @@ func newClient(cfg *Config) (*Client, error) {
 
 	// Use a provided endpoint target so that for https:// without any tls config given, then
 	// grpc will assume the certificate server name is the endpoint host.
-	conn, err := client.dialWithBalancer(dialEndpoint, grpc.WithBalancerName(roundRobinBalancerName))
+	conn, err := client.dialWithBalancer(dialEndpoint, grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"round_robin"}`))
 	if err != nil {
 		client.cancel()
 		client.resolverGroup.Close()
